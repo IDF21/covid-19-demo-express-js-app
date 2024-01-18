@@ -7,7 +7,7 @@ block content
     // We are adding a Global Section using the data.Global object.
     if data
         .centered
-            h2 Global
+            h2 United States
             .centered
                 .cards.large
                     .card
@@ -16,31 +16,31 @@ block content
                                 .row
                                     .new 
                                         h4 New Cases
-                                        .count #{data.Global.NewConfirmed}
+                                        .count #{"20K+"}
                                     .total 
                                         h4 Total Cases
-                                        .count  #{data.Global.TotalConfirmed}
+                                        .count  #{data.totalCases}
                             .deaths
                                 .row
                                     .new 
                                         h4 New Deaths
-                                        .count  #{data.Global.NewDeaths}
+                                        .count  #{"1K+"}
                                     .total
                                         h4 Total Deaths
-                                        .count  #{data.Global.TotalDeaths}
+                                        .count  #{data.totalDeaths}
                             .recovered
                                 .row
                                     .new 
                                         h4 New Recovered
-                                        .count  #{data.Global.NewRecovered}
+                                        .count  #{data.casesByState[0].name}
                                     .total
                                         h4 Total Recovered
-                                        .count  #{data.Global.TotalRecovered}
+                                        .count  #{"1M+"}
         .centered#countryList
-            h2 By Country
+            h2 By State
             h3 Type to Filter
             form(onSubmit="handleSubmit(event)")
-                input#needle(placeholder="Country name", onkeyup="handleKeyup(event)")
+                input#needle(placeholder="State name", onkeyup="handleKeyup(event)")
             // Client side JavaScript in the <script> element below is processed in your Web browser.
             script(type="text/javascript").
                 filter = (needle) => {
@@ -61,37 +61,37 @@ block content
                 };
             .cards
                 // Our Countries array is now at data.Countries.
-                each val, index in data.Countries
-                    .card(data-name=val.Country.toLowerCase())
-                        h2 #{val.Country}
-                        i As of #{val.Date.split('T')[0]}
+                each val, index in data.casesByState
+                    .card(data-name=val.name.toLowerCase())
+                        h2 #{val.name}
+                        i As of #{"2023-04-03"}
                         .row
                             .cases
-                                h3 Confirmed
+                                h3 Reported 
                                 .row
                                     .new 
-                                        h4 New
-                                        .count #{val.NewConfirmed}
+                                        h4 Range
+                                        .count #{val.range}
                                     .total 
-                                        h4 Total
-                                        .count  #{val.TotalConfirmed}
-                            .deaths
-                                h3 Deaths
-                                .row
-                                    .new 
-                                        h4 New
-                                        .count  #{val.NewDeaths}
-                                    .total
-                                        h4 Total
-                                        .count  #{val.TotalDeaths}
-                            .recovered
-                                h3 Recovered
-                                .row
-                                    .new 
-                                        h4 New
-                                        .count  #{val.NewRecovered}
-                                    .total
-                                        h4 Total
-                                        .count  #{val.TotalRecovered}
+                                        h4 Total Cases
+                                        .count  #{val.casesReported}
+                //-             .deaths
+                //-                 h3 Deaths
+                //-                 .row
+                //-                     .new 
+                //-                         h4 New
+                //-                         .count  #{val.NewDeaths}
+                //-                     .total
+                //-                         h4 Total
+                //-                         .count  #{val.TotalDeaths}
+                //-             .recovered
+                //-                 h3 Recovered
+                //-                 .row
+                //-                     .new 
+                //-                         h4 New
+                //-                         .count  #{val.NewRecovered}
+                //-                     .total
+                //-                         h4 Total
+                //-                         .count  #{val.TotalRecovered}
     p Visit the  
         a(href='/about') about page
